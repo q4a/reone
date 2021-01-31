@@ -22,6 +22,10 @@
 
 #include "../../common/aabb.h"
 
+#include "GL/glew.h"
+
+#include "SDL2/SDL_opengl.h"
+
 namespace reone {
 
 namespace render {
@@ -52,6 +56,9 @@ public:
 
     void initGL();
     void deinitGL();
+
+    void computeNormals();
+
     void renderLines() const;
     void renderTriangles() const;
 

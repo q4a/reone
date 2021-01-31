@@ -120,6 +120,26 @@ void Mesh::deinitGL() {
     _glInited = false;
 }
 
+void Mesh::computeNormals() {
+    // Adapter from https://www.khronos.org/opengl/wiki/Calculating_a_Surface_Normal
+
+    if (_offsets.normals == -1) return;
+
+    float *normalsPtr = &_vertices[_offsets.normals / sizeof(float)];
+
+    for (size_t i = 0; i < _indices.size(); i += 3) {
+        glm::vec3 p1(glm::make_vec3(&_vertices[static_cast<size_t>(_offsets.stride) * _indices[i + 0] / sizeof(float)]));
+        glm::vec3 p2(glm::make_vec3(&_vertices[static_cast<size_t>(_offsets.stride) * _indices[i + 1] / sizeof(float)]));
+        glm::vec3 p3(glm::make_vec3(&_vertices[static_cast<size_t>(_offsets.stride) * _indices[i + 2] / sizeof(float)]));
+        glm::vec3 u(p2 - p1);
+        glm::vec3 v(p3 - p1);
+        normalsPtr[0] = u.y * v.z - u.z * v.y;
+        normalsPtr[1] = u.z * v.x - u.x * v.z;
+        normalsPtr[2] = u.x * v.y - u.y * v.x;
+        normalsPtr += _offsets.stride / sizeof(float);
+    }
+}
+
 void Mesh::renderLines() const {
     render(GL_LINES, static_cast<int>(_indices.size()), 0);
 }
