@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> **This repository was archived and will no longer be maintained.** reone project continues to be actively developed in [the modawan's fork](https://github.com/modawan/reone)
+
 # reone
 
 [![Build Status](https://github.com/seedhartha/reone/actions/workflows/build-test-linux.yml/badge.svg)](https://github.com/seedhartha/reone/actions/workflows/build-test-linux.yml)
